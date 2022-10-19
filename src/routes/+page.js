@@ -2,9 +2,10 @@
 
 export async function load({ fetch, setHeaders }) {
 
+    const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
   
     const fetchSessions = async () => {
-      const url = `http://localhost:1337/api/sessions`;
+      const url = `${api_url}/sessions`;
       const sessionsResponse = await fetch(url);
       setHeaders({
         'cache-control': sessionsResponse.headers.get('cache-control'),
@@ -15,7 +16,7 @@ export async function load({ fetch, setHeaders }) {
    
 
     const fetchExercices = async () => {
-      const url = `http://localhost:1337/api/sessions`;
+      const url = `${api_url}/sessions`;
       const exercicesResponse = await fetch(url);
 
       const exercicesDatas = await exercicesResponse.json();

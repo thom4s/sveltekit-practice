@@ -1,11 +1,12 @@
 import {invalid, redirect} from '@sveltejs/kit';
 
 let exercices = [];
+const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
 
 export const load = () => {
 
     const fetchExercices = async () => {
-        const url = `http://localhost:1337/api/exercices`;
+        const url = `${api_url}/api/exercices`;
         const exercicesResponse = await fetch(url);
     
         const exercicesDatas = await exercicesResponse.json();
@@ -45,7 +46,7 @@ export const actions = {
 
         const addExercices = async () => {
 
-            const url = `http://localhost:1337/api/exercices`;
+            const url = `${api_url}/api/exercices`;
         
             const newExoForStrapi = {
                 data: {

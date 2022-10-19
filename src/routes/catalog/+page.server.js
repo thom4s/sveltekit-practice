@@ -1,9 +1,11 @@
 /** @type {import('./$types').PageServerLoad} */
 
 export async function load() {
-  
+
+  const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
+
   const fetchExercices = async () => {
-    const url = `http://localhost:1337/api/exercices`;
+    const url = `${api_url}/exercices`;
     const exercicesResponse = await fetch(url);
 
     const exercicesDatas = await exercicesResponse.json();
