@@ -3,11 +3,18 @@
     import SessionExercicesList from '$lib/components/SessionExercicesList.svelte';
     import Alert from '$lib/components/Alert.svelte';
 
+    import { userName, userToken } from '$lib/stores.js';
+    console.log('userName:', $userName);
+    console.log('userToken:', $userToken);
+
     export let data;
     const { dbExercices } = data;
 
     export let form;
-    console.log(form);
+    //console.log(form);
+
+
+
 </script>
 
 <div class="wrapper">
@@ -16,7 +23,15 @@
         <h1>Ma session personnalisée</h1>
     </div>
 
-    <form 
+    {#if $userToken === "xxxxxx" }
+
+        <h2>Vous devez être connecté pour commencer...</h2>
+        <a href="/login">go to login</a>   
+
+
+    {:else}
+
+        <form 
         method="POST" 
         action="?/add" 
         use:enhance={ ({form}) => {
@@ -69,6 +84,7 @@
         {/each}
     </ul> 
 
+    {/if}
 
 
 </div>

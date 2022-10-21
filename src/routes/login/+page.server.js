@@ -1,18 +1,6 @@
 import {invalid, redirect} from '@sveltejs/kit';
-import { browser } from '$app/environment';
-import { writable } from '$lib/store.js';
-import { get } from 'svelte/store'
-
-export const user = writable('user', {
-  name: 'there', 
-})
-let you = get(user);
-console.log(you.name);
-
-user.set({
-    name: 'thomas', 
-});
-console.log(you.name);
+import { userName } from '$lib/stores.js';
+import { userToken } from '$lib/stores.js';
 
 
 const api_url = `https://pactice-strapi-cms.herokuapp.com/api`;
@@ -54,18 +42,10 @@ export const actions = {
 
                     const {user, jwt } = response;
 
-                    // TODO: store the token for futur use
-                    // localStorage.setItem("token", jwt);
-                    // redirect('/');
-                    if (browser){
-                        variable.subscribe( (value) => localStorage.user = JSON.stringify(value))
-                        console.log("localstorage", localStorage.user);
-                    }
-
-
                     return {
                         error: false,
                         user,
+                        jwt,
                         message: "you are log in !"
                     }
 
@@ -86,6 +66,10 @@ export const actions = {
             data: await loginUser(),
             message: "hey"
         }
+        
+    },
+
+    logout: async ({request}) => {
         
     }
 

@@ -1,5 +1,7 @@
 /** @type {import('./$types').PageLoad} */
 
+
+
 export async function load({ fetch, setHeaders }) {
 
     const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
