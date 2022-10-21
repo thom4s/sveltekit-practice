@@ -22,7 +22,56 @@ export const load = () => {
 
 export const actions = {
 
-    add: async ({request}) => {
+    addSession: async ({request}) => {
+
+        const formData = await request.formData();
+        const name = formData.get('name');
+        const date = formData.get('date');
+        const userID = formData.get('userID');
+        const jwt = formData.get('jwt');
+
+        // FOR REMOTE (STRAPI PROD) STORAGE
+
+        const addSessionToStrapi = async () => {
+
+            const url = `${api_url}/sessions`;
+            
+            const newSessionDatasForStrapi = {
+                data: {
+                    name,
+                    date,
+                    user: [userID],
+                    exercices: [1, 2]
+                }
+            }
+            console.log(JSON.stringify(newSessionDatasForStrapi));
+
+            // request options
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(newSessionDatasForStrapi),
+                headers: {
+                    'Content-Type': 'application/json', 
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${jwt}`,
+                }
+            }
+            // send POST request
+            const submission = await fetch(url, options);
+            const submissionResponse = await submission.json();
+            console.log( submissionResponse );
+
+        }
+
+        await addSessionToStrapi();
+
+        return {
+            success: true
+        }
+    },
+
+
+    addExercice: async ({request}) => {
 
         const formData = await request.formData();
         const name = formData.get('name');
@@ -56,7 +105,7 @@ export const actions = {
 
         // FOR REMOTE (STRAPI PROD) STORAGE
 
-        const addExercices = async () => {
+        const addExercicesToStrapi = async () => {
 
             const url = `${api_url}/exercices`;
         
@@ -87,7 +136,7 @@ export const actions = {
 
         }
 
-        await addExercices();
+        await addExercicesToStrapi();
 
         return {
             success: true
@@ -101,7 +150,7 @@ export const actions = {
 
         // FOR REMOTE (STRAPI PROD) STORAGE
 
-        const deleteExercices = async () => {
+        const deleteExercicesFromStrapi = async () => {
 
             const url = `${api_url}/exercices/${id}`;
 
@@ -119,7 +168,7 @@ export const actions = {
 
         }
 
-        await deleteExercices();
+        await deleteExercicesFromStrapi();
 
         return {
             success: true,

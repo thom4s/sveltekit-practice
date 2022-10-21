@@ -5,8 +5,8 @@
 		alert('no more alerts')
 	}
   
-  console.log(userName);
-  console.log(logout);
+  // console.log(userName);
+  // console.log(logout);
 
 </script>
 

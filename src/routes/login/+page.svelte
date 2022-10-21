@@ -5,8 +5,8 @@
     import { userName, userToken, userID, logout } from '$lib/stores.js';
     export let form;
 
-    console.log('userName:', $userName);
-    console.log('userToken:', $userToken);
+    // console.log('userName:', $userName);
+    // console.log('userToken:', $userToken);
 
     if( form !== null ) {
         console.log('form.data:',form.data);
