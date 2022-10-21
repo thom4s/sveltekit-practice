@@ -6,7 +6,7 @@ const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
 export const load = () => {
 
     const fetchExercices = async () => {
-        const url = `${api_url}/api/exercices`;
+        const url = `${api_url}/exercices`;
         const exercicesResponse = await fetch(url);
     
         const exercicesDatas = await exercicesResponse.json();
@@ -46,7 +46,7 @@ export const actions = {
 
         const addExercices = async () => {
 
-            const url = `${api_url}/api/exercices`;
+            const url = `${api_url}/exercices`;
         
             const newExoForStrapi = {
                 data: {

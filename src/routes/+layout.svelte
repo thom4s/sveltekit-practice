@@ -3,6 +3,8 @@
     <a href="/" data-sveltekit-prefetch>Home</a>
     <a href="/feed" data-sveltekit-prefetch>Feed</a>
     <a href="/catalog" data-sveltekit-prefetch>Catalog</a>
+    <a href="/register" data-sveltekit-prefetch>Register</a>
+    <a href="/login" data-sveltekit-prefetch>Login</a>
     <a href="https://kit.svelte.dev/" target="_blank">Sveltekit Doc</a>
     <a href="https://www.youtube.com/c/Huntabyte" target="_blank">Helper Code</a>
   </div>

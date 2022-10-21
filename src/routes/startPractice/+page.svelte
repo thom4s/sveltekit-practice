@@ -59,7 +59,7 @@
     <h2>Le catalogue d'exercices (pas modifiable ni effaçable)</h2>
 
     <ul>
-        {#each dbExercices as ex}
+        {#each dbExercices.data as ex}
             
             <li>
                 {ex.attributes.name} - {ex.attributes.level}

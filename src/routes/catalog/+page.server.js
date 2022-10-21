@@ -2,7 +2,7 @@
 
 export async function load() {
 
-  const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
+  const api_url = `https://pactice-strapi-cms.herokuapp.com/api`;
 
   const fetchExercices = async () => {
     const url = `${api_url}/exercices`;
