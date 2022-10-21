@@ -21,10 +21,14 @@ export const load = () => {
 }
 
 export const actions = {
+
     add: async ({request}) => {
+
         const formData = await request.formData();
         const name = formData.get('name');
+        const userID = formData.get('userID');
         const level = formData.get('level');
+        const jwt = formData.get('jwt');
 
         if( name.length < 3 ) {
             return invalid(400, {
@@ -35,43 +39,90 @@ export const actions = {
             })
         }
 
+
+        // FOR LOCAL STORAGE / DISPLAY
+        // TODO: KEEPING ? ELSE ? 
         const id = crypto.randomUUID();
 
         const exercice = {
             id,
             name,
             level,
+            user: 'thomas'
         }
         exercices.push(exercice);
+
+
+
+        // FOR REMOTE (STRAPI PROD) STORAGE
 
         const addExercices = async () => {
 
             const url = `${api_url}/exercices`;
         
+            
             const newExoForStrapi = {
                 data: {
                     name,
                     level,
+                    user: [userID]
                 }
             }
+            console.log(JSON.stringify(newExoForStrapi));
+
             // request options
             const options = {
                 method: 'POST',
                 body: JSON.stringify(newExoForStrapi),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json', 
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${jwt}`,
                 }
             }
             // send POST request
-            fetch(url, options)
-                .then(res => res.json())
-                .then(res => console.log('res:', res))
+            const submission = await fetch(url, options);
+            const submissionResponse = await submission.json();
+            console.log( submissionResponse );
+
         }
 
         await addExercices();
 
         return {
             success: true
+        }
+    },
+
+    delete: async ({request}) => {
+        const formData = await request.formData();
+        const id = formData.get('exerciceID');
+        const jwt = formData.get('jwt');
+
+        // FOR REMOTE (STRAPI PROD) STORAGE
+
+        const deleteExercices = async () => {
+
+            const url = `${api_url}/exercices/${id}`;
+
+            // request options
+            const options = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    Authorization: `Bearer ${jwt}`,
+                }
+            }
+            // send POST request
+            const submission = await fetch(url, options);
+            const submissionResponse = await submission.json();
+
+        }
+
+        await deleteExercices();
+
+        return {
+            success: true,
         }
     },
 

@@ -3,7 +3,7 @@
     import SessionExercicesList from '$lib/components/SessionExercicesList.svelte';
     import Alert from '$lib/components/Alert.svelte';
 
-    import { userName, userToken } from '$lib/stores.js';
+    import { userName, userID, userToken } from '$lib/stores.js';
     console.log('userName:', $userName);
     console.log('userToken:', $userToken);
 
@@ -17,7 +17,7 @@
 
 </script>
 
-<div class="wrapper">
+<div class="">
 
     <div class="row mb-sm">
         <h1>Ma session personnalisée</h1>
@@ -58,6 +58,10 @@
             <input type="number" placeholder="difficulté ?" name="level" value="{form?.level ?? ''}">
         </p>
         <p>
+            <input type="hidden" hidden name="jwt" value="{$userToken}">
+            <input type="hidden" hidden name="userID" value="{$userID}">
+        </p>
+        <p>
             <button class="btn">Ajouter un exo à la session personnalisée</button>
             {#if form?.error }
                 <Alert message={form?.message} />
@@ -78,6 +82,12 @@
             
             <li>
                 {ex.attributes.name} - {ex.attributes.level}
+                <a href="/catalog/{ex.id}" data-sveltekit-prefetch>Read more</a>
+                <form method="POST" action="?/delete">
+                    <input type="hidden" hidden name="exerciceID" value="{ex.id}">
+                    <input type="hidden" hidden name="jwt" value="{$userToken}">
+                    <button >delete</button>
+                </form>
                 <a href="/catalog/{ex.id}" data-sveltekit-prefetch>Read more</a>
             </li>
 

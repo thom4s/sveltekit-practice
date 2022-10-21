@@ -11,13 +11,12 @@
 </script>
 
 <nav>
-  <div class="wrapper">
+  <div class="wrapper fl-justify">
     <div>
       <a href="/" data-sveltekit-prefetch>Home</a>
+      <a href="/startPractice" data-sveltekit-prefetch>Start</a>
       <a href="/feed" data-sveltekit-prefetch>Feed</a>
       <a href="/catalog" data-sveltekit-prefetch>Catalog</a>
-      <a href="/register" data-sveltekit-prefetch>Register</a>
-      <a href="/login" data-sveltekit-prefetch>Login</a>
       <a href="https://kit.svelte.dev/" target="_blank">Sveltekit Doc</a>
       <a href="https://www.youtube.com/c/Huntabyte" target="_blank">Helper Code</a>
     </div>
@@ -25,6 +24,7 @@
     <div>Hello {$userName} 
       {#if $userName === 'stranger' }
         <a href="/login" class="btn">login</a>
+        <a href="/register" class="btn">Register</a>
       {:else}
         <a href="#" on:click|preventDefault={logout} class="btn">log out</a>
       {/if}
@@ -54,12 +54,12 @@
     padding: 3px 10px;
     color: cornflowerblue;
   }
+  nav a[target="_blank"] {
+    background-color: cornflowerblue;
+    color: white;
+  }
   nav a:hover {
     color: black;
   }
 
-  .wrapper {
-    display: flex;
-    justify-content: space-between;
-  }
 </style>

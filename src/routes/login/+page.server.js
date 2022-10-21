@@ -1,6 +1,5 @@
 import {invalid, redirect} from '@sveltejs/kit';
-import { userName } from '$lib/stores.js';
-import { userToken } from '$lib/stores.js';
+import { userName, userToken } from '$lib/stores.js';
 
 
 const api_url = `https://pactice-strapi-cms.herokuapp.com/api`;

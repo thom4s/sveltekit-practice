@@ -4,41 +4,60 @@
     /** @type {import('./$types').PageData} */  
     export let data;
     console.log(data);
-    const { sessions, exercices } = data;
+    const { sessions } = data;
     
 </script>
   
 
 <main>
 
-    <h1>Feed</h1>
+    <header>
+        <h1>Feed</h1>
+        <p>Welcome to your feeeeed</p>
+        <p>____</p>
+        <h2>Last Sessions</h2>
+    </header>
 
-    <h2>Last Sessions</h2>
 
-    <ul>
+    <div class="grid">
     {#each sessions.data as session}
         
-        <li>
-            {session.attributes.name}
+        <div class="item">
+            <h3>{session.attributes.name}</h3>
+            <div class="flex">
+                <p>exerices faits : </p>
+                <ul>
+                    {#each session.attributes.exercices.data as sessionExercice}
+                        <li>{sessionExercice.attributes.name}</li>
+                    {/each}
+                </ul>
+            </div>
+
             <a href="/feed/{session.id}" data-sveltekit-prefetch>Read more</a>
-        </li>
+        </div>
 
     {/each}
-    </ul> 
-
-
-    <h2>Exercices Catalog</h2>
-
-    <ul>
-    {#each exercices.data as ex}
-        
-        <li>
-            {ex.attributes.name}
-            <a href="/catalog/{ex.id}" data-sveltekit-prefetch>Read more</a>
-        </li>
-
-    {/each}
-    </ul> 
+    </div> 
 
 
 </main>
+
+
+<style>
+
+    header {
+        border-bottom: 1px solid gray;
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+    }
+
+    h2 {
+        margin: 0;
+    }
+    .item {
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px dotted;
+    }
+    
+</style>

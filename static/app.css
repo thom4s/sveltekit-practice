@@ -64,6 +64,14 @@ body {
 
 
 input {
-    min-width: 300px;
-    padding: 5px;
+    min-width: 400px;
+    padding: 10px;
+}
+.flex {
+    display: flex;
+}
+.fl-justify {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
