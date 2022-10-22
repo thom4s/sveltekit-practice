@@ -1,10 +1,12 @@
 <script>
+    import Alert from '$lib/components/Alert.svelte';
+
     export let data;
     export let form;
     console.log(form);
 </script>
 
-<div class="wrapper">
+<div class="">
 
     <div class="row mb-sm">
         <h1>Register</h1>
@@ -18,6 +20,9 @@
             <input type="email" placeholder="email" name="email" value="{form?.email ?? ''}">
         </p>
         <p>
+            <input type="email" placeholder="confirmer votre email" name="confirmedEmail" value="{form?.confirmedEmail ?? ''}">
+        </p>
+        <p>
             <input type="password" placeholder="mdp" name="password" value="{form?.password ?? ''}">
         </p>
         <p>
@@ -25,6 +30,9 @@
         </p>
     </form>
 
+            {#if form?.data }
+                <Alert message={form?.data.message} />
+            {/if}
 
 
 </div>

@@ -1,3 +1,4 @@
+import {invalid, redirect} from '@sveltejs/kit';
 
 const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
 
@@ -7,7 +8,15 @@ export const actions = {
         const formData = await request.formData();
         const username = formData.get('username');
         const email = formData.get('email');
+        const confirmedEmail = formData.get('confirmedEmail');
         const password = formData.get('password');
+
+        if( email !== confirmedEmail ) {
+            return invalid(400, {
+                error: true,
+                message: "email are not matching...",
+            })
+        }
 
         const registerUser = async () => {
 
@@ -29,6 +38,15 @@ export const actions = {
                 .then(res => res.json())
                 .then(response => {
                     console.log( response )
+
+                    // TODO: ADD ERRORS MESSAGES ON FRONT..
+                    if( response.error) {
+                        return {
+                            msg: response.error.message
+
+                        }
+                    }
+                
                     console.log('User profile', response.user);
                     console.log('User token', response.jwt);
                 })
