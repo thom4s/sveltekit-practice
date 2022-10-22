@@ -1,6 +1,8 @@
 import {invalid, redirect} from '@sveltejs/kit';
 
 let exercices = [];
+let exercicesIDs = [];
+
 const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
 
 export const load = () => {
@@ -34,14 +36,16 @@ export const actions = {
 
         const addSessionToStrapi = async () => {
 
-            const url = `${api_url}/sessions`;
+            const urlForSession = `${api_url}/sessions?populate=%2A`;
             
             const newSessionDatasForStrapi = {
                 data: {
                     name,
                     date,
-                    user: [userID],
-                    exercices: [1, 2]
+                    relations: {
+                        user: userID
+                    },
+                    exercices: exercicesIDs
                 }
             }
             console.log(JSON.stringify(newSessionDatasForStrapi));
@@ -57,10 +61,11 @@ export const actions = {
                 }
             }
             // send POST request
-            const submission = await fetch(url, options);
+            const submission = await fetch(urlForSession, options);
             const submissionResponse = await submission.json();
             console.log( submissionResponse );
-
+            exercices = []
+            exercicesIDs = []
         }
 
         await addSessionToStrapi();
@@ -97,7 +102,7 @@ export const actions = {
             id,
             name,
             level,
-            user: 'thomas'
+            users_permissions_user: userID
         }
         exercices.push(exercice);
 
@@ -107,14 +112,15 @@ export const actions = {
 
         const addExercicesToStrapi = async () => {
 
-            const url = `${api_url}/exercices`;
+            const urlForExo = `${api_url}/exercices?populate=%2A`;
         
-            
             const newExoForStrapi = {
                 data: {
                     name,
                     level,
-                    user: [userID]
+                    relations: {
+                        user: userID
+                    },
                 }
             }
             console.log(JSON.stringify(newExoForStrapi));
@@ -130,9 +136,11 @@ export const actions = {
                 }
             }
             // send POST request
-            const submission = await fetch(url, options);
+            const submission = await fetch(urlForExo, options);
             const submissionResponse = await submission.json();
             console.log( submissionResponse );
+            exercicesIDs.push( submissionResponse.data.id);
+            console.log(exercicesIDs);
 
         }
 
@@ -152,7 +160,8 @@ export const actions = {
 
         const deleteExercicesFromStrapi = async () => {
 
-            const url = `${api_url}/exercices/${id}`;
+            const urlForExo = `${api_url}/exercices/${id}`;
+            console.log(jwt);
 
             // request options
             const options = {
@@ -163,9 +172,9 @@ export const actions = {
                 }
             }
             // send POST request
-            const submission = await fetch(url, options);
+            const submission = await fetch(urlForExo, options);
             const submissionResponse = await submission.json();
-
+            console.log(submissionResponse);
         }
 
         await deleteExercicesFromStrapi();
@@ -180,6 +189,9 @@ export const actions = {
         const id = formData.get('id');
 
         exercices = exercices.filter( exercice => exercice.id != id);
+        exercicesIDs = exercicesIDs.filter( value => value != id);
+
+        console.log(exercicesIDs);
 
         return {
             success: true,
