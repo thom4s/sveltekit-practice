@@ -1,9 +1,18 @@
 <script>
     export let message = '';
+    export let details = '';
 </script>
 
 
-<p>{message}</p>
+<p>
+    {message}<br>
+    {#each details as detail}
+        {#if detail.message !== message }
+            <span>{detail.message}</span><br>
+        {/if}
+    {/each}
+</p>
+
 
 
 <style>

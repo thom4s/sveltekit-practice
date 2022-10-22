@@ -3,8 +3,16 @@
 
     export let data;
     export let form;
-    console.log(form);
+    console.log('form:', form);
+    console.log('data:', data);
 </script>
+
+
+
+{#if form?.data }
+    <Alert message={form?.data.message} details={form?.data.details?.errors} />
+{/if}
+
 
 <div class="">
 
@@ -29,10 +37,5 @@
             <button class="btn">I'd like to register (please)</button>
         </p>
     </form>
-
-            {#if form?.data }
-                <Alert message={form?.data.message} />
-            {/if}
-
 
 </div>

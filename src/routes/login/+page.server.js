@@ -1,6 +1,5 @@
-import {invalid, redirect} from '@sveltejs/kit';
+import { invalid, redirect } from '@sveltejs/kit';
 import { userName, userToken } from '$lib/stores.js';
-
 
 const api_url = `https://pactice-strapi-cms.herokuapp.com/api`;
 
@@ -28,7 +27,6 @@ export const actions = {
             return fetch(url, options)
                 .then(res => res.json())
                 .then(response => {
-                    console.log('there is a response...');
                     console.log( response )
                     
                     if( response.error ) {
@@ -50,7 +48,7 @@ export const actions = {
 
                 })
                 .catch(error => {
-                    console.log('error');
+                    console.log("error:", error);
 
                     return {
                         error,
@@ -66,10 +64,7 @@ export const actions = {
             message: "hey"
         }
         
-    },
-
-    logout: async ({request}) => {
-        
     }
+
 
 }

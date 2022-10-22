@@ -2,7 +2,7 @@
     import Alert from '$lib/components/Alert.svelte';
     import {invalid, redirect} from '@sveltejs/kit';
 
-    import { userName, userToken, userID, logout } from '$lib/stores.js';
+    import { userName, userToken, userID } from '$lib/stores.js';
     export let form;
 
     // console.log('userName:', $userName);
@@ -25,9 +25,12 @@
 
     console.log('form:',form);
 
-
-
 </script>
+
+
+{#if form?.data }
+    <Alert message={form?.data.message} />
+{/if}
 
 
 <div class="wrapper">
@@ -49,9 +52,7 @@
         </p>
     </form>
 
-            {#if form?.data }
-                <Alert message={form?.data.message} />
-            {/if}
+
 
     {:else}
 

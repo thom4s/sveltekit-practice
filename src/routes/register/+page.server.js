@@ -1,10 +1,10 @@
-import {invalid, redirect} from '@sveltejs/kit';
+import { invalid, redirect } from '@sveltejs/kit';
 
-const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
-
+const api_url = `https://pactice-strapi-cms.herokuapp.com/api`;
 
 export const actions = {
     register: async ({request}) => {
+        
         const formData = await request.formData();
         const username = formData.get('username');
         const email = formData.get('email');
@@ -12,10 +12,12 @@ export const actions = {
         const password = formData.get('password');
 
         if( email !== confirmedEmail ) {
-            return invalid(400, {
-                error: true,
-                message: "email are not matching...",
-            })
+            return {
+                data: {
+                    error: true,
+                    message: "email are not matching...",
+                }
+            }
         }
 
         const registerUser = async () => {
@@ -27,36 +29,51 @@ export const actions = {
                 email,
                 password
             }
+
             // request options
             const options = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
                 body: JSON.stringify(userRegistrationDatas),
             }
+
             // send POST request
-            fetch(url, options)
+            return fetch(url, options)
                 .then(res => res.json())
                 .then(response => {
-                    console.log( response )
+                    console.log('response:', response )
 
-                    // TODO: ADD ERRORS MESSAGES ON FRONT..
                     if( response.error) {
                         return {
-                            msg: response.error.message
-
+                            error: true,
+                            name: response.error.name,
+                            message: response.error.message,
+                            details: response.error.details
                         }
                     }
-                
-                    console.log('User profile', response.user);
-                    console.log('User token', response.jwt);
-                })
-                .catch(error => console.error("error:", error));
-        }
 
-        await registerUser();
+                    return {
+                        error: false,
+                        message: response.message
+                    }
+                
+                    // console.log('User profile', response.user);
+                    // console.log('User token', response.jwt);
+                })
+                .catch(error => {
+                    console.error("error:", error);
+
+                    return {
+                        error,
+                        message: "Something's wrong here"
+                    }
+                });
+        }
+        
 
         return {
-            success: true
+            data: await registerUser(),
+            message: "hey"
         }
     }
 
