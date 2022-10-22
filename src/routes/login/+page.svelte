@@ -33,7 +33,7 @@
 {/if}
 
 
-<div class="wrapper">
+<div class="">
 
     {#if $userToken === "xxxxxx" }
     <div class="row mb-sm">
@@ -59,10 +59,6 @@
         <h1>You are already login</h1>
 
         <a href="/startPractice">Commencer une nouvelle session</a>
-
-        <h2>Mes sessions à moi</h2>
-
-        <h2>Mes exercices à moi</h2>
 
     {/if}
 

@@ -1,6 +1,8 @@
 /** @type {import('./$types').PageLoad} */
-
+import { userName, userToken } from '$lib/stores.js';
 import {api_url} from '$lib/stores';
+
+console.log(userName);
 
 export async function load({ fetch, setHeaders }) {
 
@@ -12,10 +14,8 @@ export async function load({ fetch, setHeaders }) {
         'cache-control': sessionsResponse.headers.get('cache-control'),
       });
       const sessionsDatas = await sessionsResponse.json();
-
-      console.log(sessionsDatas);
-
       return sessionsDatas;
+      
     }
    
     return {
