@@ -4,7 +4,7 @@
 
 export async function load({ fetch, setHeaders }) {
 
-    const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
+    const api_url = `https://strapi-production-c812.up.railway.app/api`
   
     const fetchSessions = async () => {
       const url = `${api_url}/sessions?populate=exercices`;

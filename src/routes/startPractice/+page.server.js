@@ -1,9 +1,8 @@
 import {invalid, redirect} from '@sveltejs/kit';
+import {api_url} from '$lib/stores';
 
 let exercices = [];
 let exercicesIDs = [];
-
-const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
 
 export const load = () => {
 

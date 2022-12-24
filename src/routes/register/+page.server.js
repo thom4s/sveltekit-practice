@@ -1,6 +1,5 @@
 import { invalid, redirect } from '@sveltejs/kit';
-
-const api_url = `https://pactice-strapi-cms.herokuapp.com/api`;
+import {api_url} from '$lib/stores';
 
 export const actions = {
     register: async ({request}) => {

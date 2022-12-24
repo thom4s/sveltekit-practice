@@ -9,7 +9,8 @@ import { browser } from '$app/environment';
 
 // Params
 
-export const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
+// export const api_url = `https://pactice-strapi-cms.herokuapp.com/api` // OLD
+export const api_url = `https://strapi-production-c812.up.railway.app/api`
 
 
 // Define vars to be in localStorage

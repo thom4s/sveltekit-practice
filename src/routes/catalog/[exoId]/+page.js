@@ -1,7 +1,8 @@
+import {api_url} from '$lib/stores';
+
+
 export const load = ({fetch, params}) => {
     console.log(params);
-
-    const api_url = `https://pactice-strapi-cms.herokuapp.com/api`
 
     const fetchSession = async (id) => {
         const url = `${api_url}/api/exercices/${id}`;
